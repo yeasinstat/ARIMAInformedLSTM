@@ -32,24 +32,6 @@ ARIMA forecast (weighted by a tunable λ).
 - **Instructions** — usage guide (expand as needed)
 - **Developers** — credits / contact (fill in your details)
 
-## Running locally
-
-```bash
-pip install -r requirements.txt
-python app.py
-```
-
-Then open the local URL Gradio prints (typically `http://127.0.0.1:7860`).
-
-## Deploying to Hugging Face Spaces
-
-1. Push this folder (`app.py`, `requirements.txt`, `README.md`, and the `assets/` folder
-   with the developer photos) to a GitHub repository.
-2. Create a new Space on Hugging Face, choose the **Gradio** SDK, and link it to the
-   GitHub repo (Settings → "Sync with a GitHub repository"), or just upload the files
-   directly through the Space's **Files** tab.
-3. The Space will build automatically using `requirements.txt` and launch `app.py`.
-
 ## Notes
 
 - Data must contain a numeric study-variable column; non-numeric rows are dropped.
