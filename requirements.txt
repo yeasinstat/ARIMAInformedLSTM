@@ -1,0 +1,10 @@
+gradio>=4.44.0
+pandas
+numpy
+matplotlib
+torch
+scikit-learn
+statsmodels
+pmdarima
+openpyxl
+scikit-optimize
