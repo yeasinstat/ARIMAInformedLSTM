@@ -183,7 +183,7 @@ def grid_search(param_grid, train_loader, Xv, yv, scaler, tune_epochs=30, progre
     total = len(combos)
     start_t = time.time()
     for i, (h, l, lr, d) in enumerate(combos):
-        if progress_fn:
+        if progress_fn is not None:
             elapsed = time.time() - start_t
             avg = elapsed / i if i > 0 else 0.0
             eta = avg * (total - i)
@@ -203,7 +203,7 @@ def grid_search(param_grid, train_loader, Xv, yv, scaler, tune_epochs=30, progre
                 opt.step()
         _, _, rv, _, _ = evaluate(m, Xv, yv, scaler)
         results.append(dict(hidden=int(h), layers=int(l), lr=float(lr), dropout=float(d), rmse=rv))
-    if progress_fn:
+    if progress_fn is not None:
         progress_fn(1.0, desc=f"Grid search: {total}/{total} combos complete "
                               f"in {format_time(time.time() - start_t)}")
     return sorted(results, key=lambda x: x["rmse"])[0], results
@@ -251,10 +251,10 @@ def bayes_search(train_loader, Xv, yv, scaler, hidden_range, layers_range, lr_ra
 
     if not specs:
         # Everything is fixed — nothing to optimize, just one evaluation.
-        if progress_fn:
+        if progress_fn is not None:
             progress_fn(0.0, desc="Evaluating fixed hyperparameters...")
         rv = _train_and_eval(fixed["hidden"], fixed["layers"], fixed["lr"], fixed["dropout"])
-        if progress_fn:
+        if progress_fn is not None:
             progress_fn(1.0, desc="Done")
         best = dict(hidden=int(fixed["hidden"]), layers=int(fixed["layers"]),
                     lr=float(fixed["lr"]), dropout=float(fixed["dropout"]), rmse=rv)
@@ -273,7 +273,7 @@ def bayes_search(train_loader, Xv, yv, scaler, hidden_range, layers_range, lr_ra
     bayes_start_t = time.time()
 
     def _gp_progress_callback(res):
-        if progress_fn:
+        if progress_fn is not None:
             done = len(res.x_iters)
             elapsed = time.time() - bayes_start_t
             avg = elapsed / done if done > 0 else 0.0
@@ -285,7 +285,7 @@ def bayes_search(train_loader, Xv, yv, scaler, hidden_range, layers_range, lr_ra
 
     result = gp_minimize(objective, dimensions, n_calls=n_calls,
                           n_initial_points=n_initial, random_state=random_state, verbose=False,
-                          callback=_gp_progress_callback if progress_fn else None)
+                          callback=_gp_progress_callback if progress_fn is not None else None)
 
     def _to_hp(x_vals, rmse):
         params = {name: v for (name, *_), v in zip(specs, x_vals)}
