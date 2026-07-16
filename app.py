@@ -1038,7 +1038,7 @@ with gr.Blocks(title="ARIMA-Informed LSTM", theme=CUSTOM_THEME, css=CUSTOM_CSS, 
                 with gr.Tab("1. Data", id=0):
                     gr.Markdown("Upload a CSV or Excel file containing a **time** column and a **study variable** column.")
                     file_in = gr.File(label="Upload Data", file_types=[".csv", ".xlsx", ".xls"])
-                    load_msg = gr.Markdown(value="Upload a file above to begin.", min_height=30)
+                    load_msg = gr.Markdown(value="Upload a file above to begin.")
                     with gr.Row():
                         time_col = gr.Dropdown(label="Time Column", choices=[])
                         value_col = gr.Dropdown(label="Study Variable", choices=[])
@@ -1074,7 +1074,7 @@ with gr.Blocks(title="ARIMA-Informed LSTM", theme=CUSTOM_THEME, css=CUSTOM_CSS, 
                             plot_height_in = gr.Slider(2.5, 10, value=3.5, step=0.5, label="Plot Height")
                             font_size_in = gr.Slider(6, 20, value=9, step=1, label="Axis Number Font Size")
                     stats_btn = gr.Button("Compute", variant="primary")
-                    stats_out = gr.Markdown(value="Click **Compute** to see statistics here.", min_height=30)
+                    stats_out = gr.Markdown(value="Click **Compute** to see statistics here.")
                     line_plot = gr.Plot(label="Time Series")
                     box_plot = gr.Plot(label="Boxplot")
                     stats_btn.click(summary_stats,
@@ -1093,7 +1093,7 @@ with gr.Blocks(title="ARIMA-Informed LSTM", theme=CUSTOM_THEME, css=CUSTOM_CSS, 
                         d_in = gr.Number(label="d", value=1, precision=0)
                         q_in = gr.Number(label="q", value=1, precision=0)
                     arima_btn = gr.Button("Fit ARIMA", variant="primary")
-                    arima_out = gr.Markdown(value="Click **Fit ARIMA** to see results here.", min_height=30)
+                    arima_out = gr.Markdown(value="Click **Fit ARIMA** to see results here.")
                     arima_result_state = gr.State(None)
                     arima_btn.click(run_arima,
                                      inputs=[df_state, value_col, use_auto, p_in, d_in, q_in, train_ratio],
@@ -1164,7 +1164,7 @@ with gr.Blocks(title="ARIMA-Informed LSTM", theme=CUSTOM_THEME, css=CUSTOM_CSS, 
                                       outputs=[manual_group, grid_group, bayes_group])
 
                     lstm_btn = gr.Button("Set / Tune Hyperparameters", variant="primary")
-                    lstm_out = gr.Markdown(value="Click **Set / Tune Hyperparameters** to begin.", min_height=60)
+                    lstm_out = gr.Markdown(value="Click **Set / Tune Hyperparameters** to begin.")
                     lstm_btn.click(run_lstm_tuning,
                                     inputs=[df_state, value_col, seq_len, train_ratio, tune_mode,
                                             hidden_in, layers_in, lr_in, dropout_in,
@@ -1191,7 +1191,7 @@ with gr.Blocks(title="ARIMA-Informed LSTM", theme=CUSTOM_THEME, css=CUSTOM_CSS, 
                         epochs_in = gr.Number(label="Max Epochs", value=200, precision=0)
                         patience_in = gr.Number(label="Early-Stopping Patience", value=20, precision=0)
                     run_btn = gr.Button("Run ARIMA-Informed LSTM", variant="primary")
-                    run_status = gr.Markdown(value="Click **Run ARIMA-Informed LSTM** to begin.", min_height=60)
+                    run_status = gr.Markdown(value="Click **Run ARIMA-Informed LSTM** to begin.")
                     gr.Markdown("### Configuration & Hyperparameters Used")
                     config_table = gr.Dataframe(label="Configuration", headers=["Parameter", "Value"])
                     results_table = gr.HTML(label="Results (Train & Test Metrics)")
