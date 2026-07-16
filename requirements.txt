@@ -8,3 +8,4 @@ statsmodels
 pmdarima
 openpyxl
 scikit-optimize
+requests
