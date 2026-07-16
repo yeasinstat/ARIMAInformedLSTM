@@ -9,3 +9,4 @@ pmdarima
 openpyxl
 scikit-optimize
 huggingface_hub==0.25.2
+pydantic==2.9.2
